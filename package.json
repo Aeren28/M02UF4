@@ -1,0 +1,23 @@
+{
+  "name": "m02uf4",
+  "version": "1.0.0",
+  "description": "Proyecto de NodeJS con MongoDB",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aeren28/M02UF4.git"
+  },
+  "author": "Nerea Fernandez",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/Aeren28/M02UF4/issues"
+  },
+  "homepage": "https://github.com/Aeren28/M02UF4#readme",
+  "dependencies": {
+    "mongod": "^2.0.0",
+    "mongodb": "^5.0.1"
+  }
+}
