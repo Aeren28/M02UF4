@@ -2,28 +2,100 @@
 
 <html>
 	<head>
-		<title>ENTIerrame</title>
+		<meta charset="UTF-8"/>
+		<title>MongoEnti</title>
 	</head>
 	
 	<body>
 		
 		<header>
-			<h1>ENTIerrame</h1>
+			<h1>MongoEnti</h1>
 			<nav>
 				<form>
 					<ul>
-						<li><button id="characters-button">Personajes</button></li> 
-						<li><button id="items-button">Objetos</button></li>
-						<li><button id="weapons-button">Armas</button></li>
+						<li><button id="characters-button" onClick="getCharacters(); return false;">Personajes</button></li> 
+						<li><button id="items-button" onClick="getItems(); return false;">Objetos</button></li>
+						<li><button id="weapons-button" onClick="getWeapons(); return false;">Armas</button></li>
 					</ul>
 				</form>
 			</nav>
 		</header>
 
-		<main id="container">
+		<main id="contents-main">
 			
 		</main>
+			<form action="/character_form" method="POST">
+				<h2>Añadir personaje</h2>
+				<p><label for="character-name">Nombre</label>
+				<input type="text" name="name" id="character-name" /></p>
+				<p><label for="character-age">Edad</label>
+                <input type="number" name="age" min="0" id="character-age" /></p>
+				<p><input type="submit" value="¡Añadir personaje!" /></p>
+				
+			</form>
 
+		<script>
+			function getCharacter(){
+				
+				fetch("/character")
+					.then(response => response.json())
+					.then(character => {
+
+				
+				let list = "<ul>";
+				for (let i = 0; i < character.length; i++){
+				
+					list += "<li>" + character[i] + "</li>";
+				
+				}
+		
+				list += "</ul>"
+				document.getElementById("contents-main").innerHTML = list;
+				});
+
+			}
+
+			function getitems(){
+				
+				fetch("/items")
+					.then(respone => response.json())
+					.then(items => {
+
+				let list = "<ul>";
+				for (let i = 0; i < items.length; i++){
+
+					list += "<li>" + items[i] + "</li>";
+
+				}
+
+				list += "</ul>"
+				document.getElementById("contents-main").innerHTML = list;
+
+				});
+
+			}
+
+			function getWeapons (){
+				
+				fetch("/weapons")
+					.then(response => response.json())
+					.then(items => {
+
+						let list = "<ul>";
+
+						for (let i = 0; i < items.length; i++) {
+							list += "<li>" + items[i] + "</li>";
+						}
+
+						list += "</ul>";
+
+						document.getElementById("contents-main").innerHTML = list;
+
+					});
+			}
+
+
+		</script>
 	</body>
 </html>
 
