@@ -12,11 +12,13 @@
 		<header>
 			<h1>MongoEnti</h1>
 			<nav>
-				<form>
+				
+				<form id="characters">
 					<ul>
-						<li><button id="characters-button" onClick="getCharacters(); return false;">Personajes</button></li> 
-						<li><button id="items-button" onClick="getItems(); return false;">Objetos</button></li>
-						<li><button id="weapons-button" onClick="getWeapons(); return false;">Armas</button></li>
+						<li><button id="payoh-button" onclick="getCharacter_Data(1); return false;">Payoh</button></li>
+						<li><button id="yuca-button" onclick="getCharacter_Data(2); return false;">Yuca</button></li>
+						<li><button id="yulen-button" onclick="getCharacter_Data(3); return false;">Yulen</button></li>
+						<li><button id="josema-button" onclick="getCharacter_Data(4); return false;">Josema</button></li>
 					</ul>
 				</form>
 			</nav>
@@ -25,20 +27,10 @@
 		<main id="contents-main">
 			
 		</main>
-			<form action="/character_form" method="POST">
-				<h2>Añadir personaje</h2>
-				<p><label for="character-name">Nombre</label>
-				<input type="text" name="name" id="character-name" /></p>
-				<p><label for="character-age">Edad</label>
-                <input type="number" name="age" min="0" id="character-age" /></p>
-				<p><input type="submit" value="¡Añadir personaje!" /></p>
-				
-			</form>
-
 		<script>
 			function getCharacter(){
 				
-				fetch("/character")
+				fetch("http://10.40.1.101:7887/character")
 					.then(response => response.json())
 					.then(character => {
 
@@ -58,7 +50,7 @@
 
 			function getitems(){
 				
-				fetch("/items")
+				fetch("http://10.40.1.101:7887/items")
 					.then(respone => response.json())
 					.then(items => {
 
@@ -78,7 +70,7 @@
 
 			function getWeapons (){
 				
-				fetch("/weapons")
+				fetch("http://10.40.1.101:7887/weapons")
 					.then(response => response.json())
 					.then(items => {
 
@@ -94,7 +86,31 @@
 
 					});
 			}
+			
+			function getCharacter_Data(id_character) {
+			
+				let url = "http://10.40.1.101:7887/?id_character=" + id_character;
 
+				fetch(url)
+					.then(response => response.json())
+					.then(data => {
+						console.log(data);
+						let list = "<ul>";
+						
+						list += "<li>Name: " + data[0].name + "</li>";
+						list += "<li>Age: " + data[0].age + "</li>";
+						list += "<li>Gender: " + data[0].gender + "</li>";
+						list += "<li>Race: " + data[0].race + "</li>";
+						list += "<li>Height: " + data[0].height + "</li>";
+						list += "<li>Weight: " + data[0].weight + "</li>";
+						list += "<li>Class: " + data[0].class + "</li>";
+						list += "<li>Origin: " + data[0].origin + "</li>";
+
+						list += "</ul>";
+
+						document.getElementById("contents-main").innerHTML = list;
+					});
+			}
 
 		</script>
 	</body>

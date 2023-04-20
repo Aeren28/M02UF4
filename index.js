@@ -198,7 +198,16 @@ function send_weapons (response){
 	});
 }
 
+function send_Character_Data(response, id_character) {
 
+	collection = db.collection('characters');
+	
+	collection.find({ "id_character": Number(id_character) }).project({ _id: 0 }).toArray()
+		.then(character => {
+			response.write(JSON.stringify(character));
+			response.end();
+		});	
+}
 
 function insert_character (request, response){
 	
@@ -261,6 +270,7 @@ let http_server = http.createServer(function(request, response){
 	console.log("Se conecto");
 
 	let url = request.url.split("/");
+	let params = request.url.split("?");
 
 	switch (url[1]) {
 	
@@ -285,6 +295,15 @@ let http_server = http.createServer(function(request, response){
 		break;
 
 	default:
+	
+		if (params[1]) {
+			let parameter = params[1].split("=");
+			let id_character = parameter[1];
+			console.log(id_character);
+
+			send_Character_Data(response, id_character);
+			return;
+		}
 
 		fs.readFile("index.html", function(err, data){
 		

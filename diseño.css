@@ -59,3 +59,7 @@ header {
 	line-height: 30px; 
 	z-index: 0; 
 }
+
+ul {
+    list-style: none;
+}
